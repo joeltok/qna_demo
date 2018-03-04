@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
-import io from 'socket.io-client';
+/* eslint-disable no-unused-vars */
+import React, { Component } from 'react'
+import io from 'socket.io-client'
 
 class App extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
-    var that = this;
+    var that = this
 
     this.state = {
       messages: [],
-      currentMessage: ""
-    };
+      currentMessage: ''
+    }
 
     this.socket = io('http://localhost:9000')
     this.socket.on('connect', () => {
-      console.log('connected');
+      console.log('connected')
     })
 
     let addAnswer = (data) => {
-      let messages = that.state.messages;
+      let messages = that.state.messages
       messages.push({
         agent: 'Guilty Spark 343',
         message: data
@@ -33,19 +34,18 @@ class App extends Component {
     })
   }
 
-  handleChange(e) {
+  handleChange (e) {
     this.setState({
       currentMessage: e.target.value
     })
   }
 
-  handleKeyPress(e) {
+  handleKeyPress (e) {
     if (e.key === 'Enter') {
-
       this.socket.emit('question', this.state.currentMessage)
 
       console.log(`Submitted: ${this.state.currentMessage}`)
-      let messages = this.state.messages;
+      let messages = this.state.messages
       messages.push({
         agent: 'Me',
         message: this.state.currentMessage
@@ -57,8 +57,7 @@ class App extends Component {
     }
   }
 
-  render() {
-
+  render () {
     const styles = {
       container: {
         display: 'flex',
@@ -80,7 +79,7 @@ class App extends Component {
         marginBottom: 5
       },
       message: {
-        flex: 1,
+        flex: 1
 
       },
       textInput: {
@@ -113,8 +112,8 @@ class App extends Component {
         {conversation}
         {chatBox}
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
